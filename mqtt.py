@@ -7,21 +7,21 @@ class Mqtt():
     def __exit__(self, *args, **kwargs):
         self.client.loop_stop()
 
-    def __init__(self, broker: str, client_id: str, port: int) -> mqtt.Client:
+    def __init__(self, broker: str, client_id: str, port: int):
         def on_connect(client, userdata, flags, rc, _properties):
             if rc == 0:
                 print("Connected to MQTT Broker.")
             else:
                 print("Failed to connect, return code %d\n", rc)
 
-        client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id)
+        client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id) # type: ignore
         # client.username_pw_set(username, password)
         client.on_connect = on_connect
         client.connect(broker, port)
         self.client = client
 
 
-    def subscribe(self, topics: str, handler):
+    def subscribe(self, topics: list[str], handler):
         """Subscribe to multiple topics.
         
         Running this method more than once with different handlers will cause
