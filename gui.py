@@ -91,9 +91,11 @@ class GUI_Player(logic.Player):
         self.button = button
         self.image = Image_obj(window, (xpos, 0.4), ASSETS[Buttons.BLACK])
         callback = lambda b=button: client.publish(b, "push")
-        self.debug_button = Button_obj(window, (xpos, 0.6), f"Press", callback=callback)
+        self.debug_button = Button_obj(window, (xpos, 0.6), "Press", callback=callback)
         callback = lambda b=button: client.publish(b, "long-push")
-        self.pass_button = Button_obj(window, (xpos, 0.7), f"Long press (Pass)", callback=callback)
+        self.pass_button =  Button_obj(
+            window, (xpos, 0.7), "Long press (Pass)", callback=callback
+        )
         self.label = Label(window, (xpos, 0.8), "0:00:00")
         super().__init__(button)
          
